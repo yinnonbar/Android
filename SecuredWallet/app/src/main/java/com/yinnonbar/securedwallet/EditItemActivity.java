@@ -22,12 +22,11 @@ public class EditItemActivity extends Activity {
         final Intent intent = getIntent();
         Button okBtn = (Button) findViewById(R.id.editItembtnOK);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        //given current key and value of the item that has to be edited
         final String oldKey = intent.getStringExtra("oldKey");
-        final int itemPos = intent.getIntExtra("position", -1);
         final String oldValue = intent.getStringExtra("oldValue");
-        Log.e(ITEMLOG, "item pos is " + itemPos);
-        Log.e(ITEMLOG, "old key is " + oldKey);
-        Log.e(ITEMLOG, "old value is " + oldValue);
+        //item's pos in the list
+        final int itemPos = intent.getIntExtra("position", -1);
         ((EditText) findViewById((R.id.editItemKey))).setText(oldKey);
         ((EditText) findViewById((R.id.editItemValue))).setText(oldValue);
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -36,11 +35,12 @@ public class EditItemActivity extends Activity {
                 if (((EditText) findViewById((R.id.editItemKey))).getText().toString().isEmpty()
                         || ((EditText) findViewById((R.id.editItemValue))).getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Key & A Value", Toast.LENGTH_SHORT).show();
+                //if no change was made in both the key and the value
                 } else if (((EditText) findViewById((R.id.editItemKey))).getText().toString().equals(oldKey)
-                && ((EditText) findViewById((R.id.editItemValue))).getText().toString().equals(oldValue)){
+                        && ((EditText) findViewById((R.id.editItemValue))).getText().toString().equals(oldValue)) {
                     Toast.makeText(getApplicationContext(), "No change was made", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e(ITEMLOG, "key in add new item is " + ((EditText) findViewById((R.id.editItemKey))).getText().toString());
+                    //sending back to wallet the pos, old key and new key and value
                     intent.putExtra("position", itemPos);
                     intent.putExtra("oldKey", oldKey);
                     intent.putExtra("newKey", ((EditText) findViewById((R.id.editItemKey))).getText().toString());

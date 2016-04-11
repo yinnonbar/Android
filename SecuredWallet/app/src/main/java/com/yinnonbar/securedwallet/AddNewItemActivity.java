@@ -25,11 +25,12 @@ public class AddNewItemActivity extends Activity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //key or value are empty
                 if (((EditText) findViewById((R.id.edtNewKey))).getText().toString().isEmpty()
                         || ((EditText) findViewById((R.id.edtNewValue))).getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Key & A Value", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e(ITEMLOG, "key in add new item is " +((EditText) findViewById((R.id.edtNewKey))).getText().toString());
+                    //sending back to wallet intent the key and the value
                     intent.putExtra("key", ((EditText) findViewById((R.id.edtNewKey))).getText().toString());
                     intent.putExtra("value", ((EditText) findViewById((R.id.edtNewValue))).getText().toString());
                     setResult(RESULT_OK, intent);
