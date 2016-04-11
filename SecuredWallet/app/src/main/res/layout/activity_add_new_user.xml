@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/newUserName"
+        android:gravity="center"
+        android:hint="Username"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/newPassword"
+        android:layout_alignStart="@+id/newPassword"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="0dp"
+        android:inputType="text" />
+
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/newPassword"
+        android:hint="Password"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:layout_below="@+id/newUserName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create A New User"
+        android:id="@+id/addNewUserBtn"
+        android:layout_below="@+id/showHidePassChbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancelAddNewUserBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show password"
+        android:id="@+id/showHidePassChbox"
+        android:checked="false"
+        android:layout_below="@+id/newPassword"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
