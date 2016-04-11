@@ -1,2 +1,2 @@
-# ex2
-ex2 @ postpc course. TODO list
+Yinnon Bratspiess
+ToDo list - a simple to do list application
