@@ -2,6 +2,8 @@ package com.yinnonbar.securedwallet;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,6 @@ import java.util.ArrayList;
  * Created by Yinnon Bratspiess on 07/04/2016.
  */
 public class MyAdapter extends ArrayAdapter<WalletItem> {
-
-
         private static final String TAG = "tag";
         private Activity activity;
         private static LayoutInflater inflater = null;
@@ -44,13 +44,11 @@ public class MyAdapter extends ArrayAdapter<WalletItem> {
                     view = inflater.inflate(R.layout.row, null);
                     holder = new ViewHolder();
                     holder.key = (TextView) view.findViewById(R.id.itemKey);
-                    holder.value = (TextView) view.findViewById(R.id.itemValue);
                     view.setTag(holder);
                 } else {
                     holder = (ViewHolder) view.getTag();
                 }
                 holder.key.setText(items.get(position).getKey());
-                holder.value.setText(items.get(position).getValue());
 
             }
             catch (Exception e) {

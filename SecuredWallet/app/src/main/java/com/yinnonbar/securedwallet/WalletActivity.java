@@ -3,9 +3,10 @@ package com.yinnonbar.securedwallet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -50,26 +50,42 @@ public class WalletActivity extends AppCompatActivity {
         }else {
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
         }
-        /*
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder showItemAlertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
+                //a custom title for the dialog
+                TextView customTitle = new TextView(getApplicationContext());
+                customTitle.setText(itemsArr.get(position).getKey());
+                customTitle.setTextSize(20);
+                customTitle.setPadding(10, 10, 10, 10);
+                customTitle.setTextColor(Color.BLUE);
+                customTitle.setGravity(Gravity.CENTER);
 
+                showItemAlertDialogBuilder.setCustomTitle(customTitle)
+                        .setMessage(itemsArr.get(position).getValue())
+                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).show();
             }
         });
-        */
+
         //on item long click listener
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
+                AlertDialog.Builder longClickAlertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
                 final String longClickedItemKey = itemsArr.get(position).getKey();
-                alertDialogBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                longClickAlertDialogBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         AlertDialog deleteItemAlertDialog = new AlertDialog.Builder(WalletActivity.this)
-                                .setTitle("Delete").setMessage("Are you sure you want to delete " + longClickedItemKey + " ?")
+                                .setTitle("Delete").setMessage("Are you sure you want to delete "
+                                        + longClickedItemKey + " ?")
                                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -110,7 +126,7 @@ public class WalletActivity extends AppCompatActivity {
                         startActivityForResult(editItemIntent, EDIT_ITEM);
                     }
                 }).show();
-                return false;
+                return true;
             }
         });
 
@@ -158,7 +174,8 @@ public class WalletActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
-                                Toast.makeText(getApplicationContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Logged out successfully",
+                                        Toast.LENGTH_SHORT).show();
 
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -185,7 +202,8 @@ public class WalletActivity extends AppCompatActivity {
                 itemsArr.add(newItem);
                 dbhelper.addData(currUserName, keyData, valueData);
             }else{
-                Toast.makeText(getApplicationContext(), "Item with the same key already exists", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Item with the same key already exists",
+                        Toast.LENGTH_SHORT).show();
             }
             adapter.notifyDataSetChanged();
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
@@ -203,7 +221,8 @@ public class WalletActivity extends AppCompatActivity {
                 itemsArr.set(itemPos, newItem);
                 dbhelper.updateItem(currUserName, newItem, oldKey);
                 adapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "Item was edited successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Item was edited successfully",
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Could'nt edit item because an item with " +
                         "the same key is already exists", Toast.LENGTH_LONG).show();
