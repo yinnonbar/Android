@@ -68,15 +68,21 @@ public class LoginActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             //about app
             case R.id.menu_about_item:
+                Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(aboutIntent);
+                break;
+                /*
                 AlertDialog.Builder aboutAlertDialog = new AlertDialog.Builder(this);
                 aboutAlertDialog.setTitle("Secured Wallet").setMessage("Secured Wallet was created by Yinnon Bratspiess. \n" +
-                        "Contact me @ yinnonbar@gmail.com")
+                        "Disclaimer"
+                        +"Contact me @ yinnonbar@gmail.com")
                         .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                 }
                 }).show();
-                break;
+                */
+
             //exit app
             case R.id.menu_exit_item:
                 AlertDialog.Builder exitAlertDialog = new AlertDialog.Builder(this);

@@ -46,7 +46,7 @@ public class WalletActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         if (itemsArr.isEmpty()) {
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet \n" +
-                    " Seems like it's empty");
+                    "Seems like it's empty");
         }else {
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
         }
@@ -103,7 +103,7 @@ public class WalletActivity extends AppCompatActivity {
                                                     .setText(currUserName + " Secured Wallet");
                                         }
                                         Toast.makeText(getApplicationContext(), longClickedItemKey
-                                                + " was Removed", Toast.LENGTH_SHORT).show();
+                                                + " was removed", Toast.LENGTH_SHORT).show();
                                     }
                                 }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                     @Override

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_me"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Secured Wallet was created by Yinnon Bratspiess."
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="7dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myMailTextView"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="2dp"
+        android:clickable="true"
+        android:layout_alignLeft="@+id/textView" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Disclaimer"
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:layout_below="@+id/myMailTextView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Using Secured Wallet is at your own risk. "
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/myMailTextView"
+        android:layout_alignStart="@+id/myMailTextView"
+        android:textSize="8dp"
+        android:layout_marginRight="2dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We do not responsible for direct, indirect, incidental or consequential damages that can occour upon using Secured Wallet."
+        android:id="@+id/textView5"
+        android:textSize="8dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginRight="2dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="There is no kind of guarantee whatsoever given by Secured Wallet for your data and in case it was stolen or lost it is only your own respobsibilty."
+        android:id="@+id/textView6"
+        android:textSize="8dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginRight="3dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/aboutCloseBtn"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="About Secured Wallet"
+        android:id="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+</RelativeLayout>

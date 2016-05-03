@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Secured Wallet</string>
+    <string name="about_me"><u>About Me</u></string>
+    <string name="Disclaimer"><u>Disclaimer</u></string>
 </resources>
