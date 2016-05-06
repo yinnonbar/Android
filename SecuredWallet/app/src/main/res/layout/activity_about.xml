@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Secured Wallet was created by Yinnon Bratspiess."
+        android:text="@string/wasCreatedBy"
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
@@ -47,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Using Secured Wallet is at your own risk. "
+        android:text="@string/usingAtYourOwnRisk"
         android:id="@+id/textView4"
         android:layout_below="@+id/textView3"
         android:layout_alignLeft="@+id/myMailTextView"
@@ -58,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="We do not responsible for direct, indirect, incidental or consequential damages that can occour upon using Secured Wallet."
+        android:text="@string/noResponsible"
         android:id="@+id/textView5"
         android:textSize="8dp"
         android:layout_below="@+id/textView4"
@@ -69,7 +69,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="There is no kind of guarantee whatsoever given by Secured Wallet for your data and in case it was stolen or lost it is only your own respobsibilty."
+        android:text="@string/noGuarantee"
         android:id="@+id/textView6"
         android:textSize="8dp"
         android:layout_below="@+id/textView5"
@@ -80,7 +80,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close"
+        android:text="@string/close"
         android:id="@+id/aboutCloseBtn"
         android:layout_below="@+id/textView6"
         android:layout_alignParentRight="true"
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="About Secured Wallet"
+        android:text="@string/aboutSecuredWallet"
         android:id="@+id/textView7"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

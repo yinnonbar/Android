@@ -45,19 +45,19 @@ public class AddNewUserActivity extends AppCompatActivity {
                 String newPassword = ((EditText) findViewById((R.id.newPassword))).getText().toString();
                 // user is empty or pass is empty
                 if (newUserName.isEmpty() || newPassword.isEmpty()) {
-                            Toast.makeText(getApplicationContext(), "Please Enter Username And Password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.pleaseEnterUserAndPass, Toast.LENGTH_SHORT).show();
                 }
 
                 //case that the username already exists in the DB
-                else if (dbhelper.checkExistence(newUserName)) {
-                    Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                else if (dbhelper.checkUserExistence(newUserName)) {
+                    Toast.makeText(getApplicationContext(), R.string.userAlreadyExists, Toast.LENGTH_SHORT).show();
                 }
                 //valid name and user
                 else {
                     //adding user to DB
                     User newUser = new User(newUserName, newPassword);
                     dbhelper.addUser(newUser);
-                    Toast.makeText(getApplicationContext(), newUserName + " was created", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), newUserName + getString(R.string.wasCreated), Toast.LENGTH_LONG).show();
                     finish();
                 }
             }
@@ -66,14 +66,14 @@ public class AddNewUserActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogBuilder.setTitle("Cancel")
-                        .setMessage("Are you sure you want to cancel ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.cancel)
+                        .setMessage(R.string.sureToCancel)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by Yinnon Bratspiess on 07/04/2016.
  */
 public class WalletActivity extends AppCompatActivity {
-    private static final String WALLETLOG = "DatabaseHelper";
+   // private static final String WALLETLOG = "DatabaseHelper";
     private static final int ADD_ITEM = 2;
     private static final int EDIT_ITEM = 3;
 
@@ -40,15 +40,16 @@ public class WalletActivity extends AppCompatActivity {
         final Intent editItemIntent = new Intent(this, EditItemActivity.class);
         dbhelper =  new DBHelper(getBaseContext());
         currUserName = walletIntent.getStringExtra("username");
-        ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
+        ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         itemsArr = dbhelper.getAllItems(currUserName);
         adapter = new MyAdapter(this, 0, itemsArr);
         list.setAdapter(adapter);
         if (itemsArr.isEmpty()) {
-            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet \n" +
-                    "Seems like it's empty");
+            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName +
+                    getString(R.string.SecuredWallet) + "\n"  +
+                    getString(R.string.seemsLikeItsEmpty));
         }else {
-            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
+            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         }
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +66,7 @@ public class WalletActivity extends AppCompatActivity {
 
                 showItemAlertDialogBuilder.setCustomTitle(customTitle)
                         .setMessage(itemsArr.get(position).getValue())
-                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
@@ -79,14 +80,14 @@ public class WalletActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder longClickAlertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
                 final String longClickedItemKey = itemsArr.get(position).getKey();
-                longClickAlertDialogBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                longClickAlertDialogBuilder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         AlertDialog deleteItemAlertDialog = new AlertDialog.Builder(WalletActivity.this)
-                                .setTitle("Delete").setMessage("Are you sure you want to delete "
+                                .setTitle(R.string.delete).setMessage(getString(R.string.sureToDelete)
                                         + longClickedItemKey + " ?")
-                                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //deleting the item
@@ -96,28 +97,29 @@ public class WalletActivity extends AppCompatActivity {
                                         //if now the list is empty then show the matching message
                                         if (itemsArr.isEmpty()) {
                                             ((TextView) findViewById(R.id.walletTitle))
-                                                    .setText(currUserName + " Secured Wallet \n" +
-                                                            "Seems like it's empty");
+                                                    .setText(currUserName +
+                                                            getString(R.string.SecuredWallet) + "\n"  +
+                                                            getString(R.string.seemsLikeItsEmpty));
                                         } else {
                                             ((TextView) findViewById(R.id.walletTitle))
-                                                    .setText(currUserName + " Secured Wallet");
+                                                    .setText(currUserName + getString(R.string.SecuredWallet));
                                         }
                                         Toast.makeText(getApplicationContext(), longClickedItemKey
-                                                + " was removed", Toast.LENGTH_SHORT).show();
+                                                + getString(R.string.wasRemoved), Toast.LENGTH_SHORT).show();
                                     }
-                                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
                                 }).show();
                     }
-                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 //case of edit item
-                }).setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         editItemIntent.putExtra("oldKey", longClickedItemKey);
@@ -149,19 +151,19 @@ public class WalletActivity extends AppCompatActivity {
             //case of remove user
             case (R.id.menu_remove_user_item):
                 AlertDialog.Builder removeUserAlertDialog = new AlertDialog.Builder(this);
-                removeUserAlertDialog.setTitle("Delete User").
-                        setMessage("Are you sure you want to remove yourself from the database ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                removeUserAlertDialog.setTitle(R.string.deleteUser).
+                        setMessage(R.string.areYouSureYouWantToRemoveYourself)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dbhelper.deleteUser(currUserName);
                                 adapter.notifyDataSetChanged();
                                 finish();
                                 Toast.makeText(getApplicationContext(), currUserName +
-                                        " was removed", Toast.LENGTH_LONG).show();
+                                        getString(R.string.wasRemoved), Toast.LENGTH_LONG).show();
 
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
@@ -169,16 +171,16 @@ public class WalletActivity extends AppCompatActivity {
                 break;
             case (R.id.menu_logout_item):
                 AlertDialog.Builder logoutAlertDialog = new AlertDialog.Builder(this);
-                logoutAlertDialog.setTitle("Logout").setMessage("Are you sure you want to logout ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                logoutAlertDialog.setTitle(R.string.logout).setMessage(R.string.areYouSureYouWantToLogout)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
-                                Toast.makeText(getApplicationContext(), "Logged out successfully",
+                                Toast.makeText(getApplicationContext(), R.string.loggedOutSuccessfully,
                                         Toast.LENGTH_SHORT).show();
 
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -202,11 +204,11 @@ public class WalletActivity extends AppCompatActivity {
                 itemsArr.add(newItem);
                 dbhelper.addData(currUserName, keyData, valueData);
             }else{
-                Toast.makeText(getApplicationContext(), "Item with the same key already exists",
+                Toast.makeText(getApplicationContext(), R.string.itemWithTheSameKeyAlreadyExists,
                         Toast.LENGTH_SHORT).show();
             }
             adapter.notifyDataSetChanged();
-            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + " Secured Wallet");
+            ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         }
         //case of edit new item intent returns data
         else if (reqCode == EDIT_ITEM && resCode == RESULT_OK) {
@@ -221,11 +223,10 @@ public class WalletActivity extends AppCompatActivity {
                 itemsArr.set(itemPos, newItem);
                 dbhelper.updateItem(currUserName, newItem, oldKey);
                 adapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "Item was edited successfully",
+                Toast.makeText(getApplicationContext(), R.string.itemWasEditedSuccessfully,
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Could'nt edit item because an item with " +
-                        "the same key is already exists", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.couldntEditItemAlreadyExists, Toast.LENGTH_LONG).show();
             }
         }
     }

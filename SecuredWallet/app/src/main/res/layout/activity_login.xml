@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         android:gravity="center"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="text" />
 
     <EditText
@@ -29,13 +29,13 @@
         android:layout_below="@+id/usernameText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:gravity="center" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:id="@+id/loginBtn"
         android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true"
@@ -44,9 +44,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a user"
+        android:text="@string/createAUser"
         android:id="@+id/createUserButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/login_icon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

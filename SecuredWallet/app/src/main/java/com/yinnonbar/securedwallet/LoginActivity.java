@@ -3,6 +3,7 @@ package com.yinnonbar.securedwallet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +20,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         final DBHelper dbhelper =  new DBHelper(getBaseContext());
+        final String PREFS_NAME = "MyPrefsFile";
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        if (settings.getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            // first time task
+            Intent welcomeIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
+            startActivity(welcomeIntent);
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
         Button createUserBtn = (Button) findViewById(R.id.createUserButton);
         //on clicking create user button starting the Add new user activity
@@ -49,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(walletIntent);
                 //user not exists in DB or a wrong pass
                 } else {
-                    new AlertDialog.Builder(com.yinnonbar.securedwallet.LoginActivity.this)
-                            .setTitle("Invalid User").setMessage("Please enter a valid user and password")
-                            .setNeutralButton("Close", null).show();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle(R.string.invalidUser).setMessage(R.string.pleaseEnterValidUserAndPass)
+                            .setNeutralButton(R.string.close, null).show();
                 }
             }
         });
@@ -71,28 +82,16 @@ public class LoginActivity extends AppCompatActivity {
                 Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
-                /*
-                AlertDialog.Builder aboutAlertDialog = new AlertDialog.Builder(this);
-                aboutAlertDialog.setTitle("Secured Wallet").setMessage("Secured Wallet was created by Yinnon Bratspiess. \n" +
-                        "Disclaimer"
-                        +"Contact me @ yinnonbar@gmail.com")
-                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                }
-                }).show();
-                */
-
             //exit app
             case R.id.menu_exit_item:
                 AlertDialog.Builder exitAlertDialog = new AlertDialog.Builder(this);
-                exitAlertDialog.setTitle("Exit").setMessage("Are you sure you want to leave ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                exitAlertDialog.setTitle(R.string.exit).setMessage(R.string.areYouSureYouWantToLeave)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/Disclaimer"
+        android:id="@+id/textView15"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/letsGo"
+        android:id="@+id/welcome4NextBtn"
+        android:layout_marginTop="59dp"
+        android:layout_marginRight="21dp"
+        android:layout_below="@+id/termsOfUseText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="21dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome4Message"
+        android:id="@+id/termsOfUseText"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:textColor="#1c1fcd" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I read and agree to the terms of use"
+        android:id="@+id/agreeTermsCheckBox"
+        android:layout_below="@+id/termsOfUseText"
+        android:layout_alignLeft="@+id/termsOfUseText"
+        android:layout_alignStart="@+id/termsOfUseText"
+        android:checked="false"
+        android:layout_marginTop="5dp" />
+
+</RelativeLayout>

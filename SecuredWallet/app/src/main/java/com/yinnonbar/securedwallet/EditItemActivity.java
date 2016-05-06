@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,11 +33,11 @@ public class EditItemActivity extends Activity {
             public void onClick(View v) {
                 if (((EditText) findViewById((R.id.editItemKey))).getText().toString().isEmpty()
                         || ((EditText) findViewById((R.id.editItemValue))).getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter A Key & A Value", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.pleaseEnterKeyAndValue, Toast.LENGTH_SHORT).show();
                 //if no change was made in both the key and the value
                 } else if (((EditText) findViewById((R.id.editItemKey))).getText().toString().equals(oldKey)
                         && ((EditText) findViewById((R.id.editItemValue))).getText().toString().equals(oldValue)) {
-                    Toast.makeText(getApplicationContext(), "No change was made", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.noChangeWasMade, Toast.LENGTH_SHORT).show();
                 } else {
                     //sending back to wallet the pos, old key and new key and value
                     intent.putExtra("position", itemPos);
@@ -55,14 +54,14 @@ public class EditItemActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                alertDialogBuilder.setTitle("Cancel")
-                        .setMessage("Are you sure you want to cancel ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.cancel)
+                        .setMessage(R.string.sureToCancel)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

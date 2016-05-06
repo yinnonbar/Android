@@ -3,7 +3,6 @@ package com.yinnonbar.securedwallet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -19,7 +18,7 @@ public class AboutActivity extends Activity {
         setContentView(R.layout.activity_about);
         final Intent intent = new Intent();
         TextView myMail = (TextView) findViewById(R.id.myMailTextView);
-        myMail.setText(Html.fromHtml("<a href=\"mailto:yinnonbar@gmail.com\">Contact Me</a>"));
+        myMail.setText(Html.fromHtml(getString(R.string.mailTo)));
         myMail.setMovementMethod(LinkMovementMethod.getInstance());
         Button closeBtn = (Button) findViewById(R.id.aboutCloseBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {

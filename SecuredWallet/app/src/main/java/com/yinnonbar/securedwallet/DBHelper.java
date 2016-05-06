@@ -6,8 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -140,7 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param userName
      * @return true iff username already exists
      */
-    public Boolean checkExistence(String userName) {
+    public Boolean checkUserExistence(String userName) {
         int count = -1;
         Cursor c = null;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -159,6 +157,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
 
     /**
      * checks if a item's key already exists for a given user
@@ -211,8 +210,6 @@ public class DBHelper extends SQLiteOpenHelper {
         //Cursor c = null;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, new String[]{username});
-        Log.e(LOG, selectQuery);
-       // Log.e(LOG, "c size is : " + c.toString());
         WalletItem currItem = null;
         if (c.moveToFirst()) {
             do {
