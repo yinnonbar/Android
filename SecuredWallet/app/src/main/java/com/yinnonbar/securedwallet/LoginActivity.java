@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private final static String APP_PNAME = "com.yinnonbar.securedwallet";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             // record the fact that the app has been started at least once
             settings.edit().putBoolean("my_first_time", false).commit();
         }
+        AppRater.app_launched(this);
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
         Button createUserBtn = (Button) findViewById(R.id.createUserButton);
         //on clicking create user button starting the Add new user activity
@@ -83,6 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(aboutIntent);
                 break;
             //exit app
+            case R.id.menu_rate_item:
+                LoginActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
+                break;
             case R.id.menu_exit_item:
                 AlertDialog.Builder exitAlertDialog = new AlertDialog.Builder(this);
                 exitAlertDialog.setTitle(R.string.exit).setMessage(R.string.areYouSureYouWantToLeave)

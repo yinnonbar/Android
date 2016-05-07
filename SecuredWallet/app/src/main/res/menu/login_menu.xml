@@ -3,6 +3,9 @@
     <item android:id="@+id/menu_about_item"
         android:title="About"
         android:gravity="center" />
+    <item android:id="@+id/menu_rate_item"
+        android:title="Rate"
+        android:gravity="center" />
     <item android:id="@+id/menu_exit_item"
         android:title="Exit"
         android:gravity="center" />

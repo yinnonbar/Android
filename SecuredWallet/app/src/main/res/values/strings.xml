@@ -58,4 +58,6 @@
     <string name="search"> Search</string>
     <string name="copy">Copy</string>
     <string name="valueWasCopied">Value was copied to the clipbaord</string>
+    <string name="rate">"Rate "</string>
+    <string name="rateSecuredWallet"><b>Rate Secured Wallet</b></string>
 </resources>
