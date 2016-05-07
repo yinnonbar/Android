@@ -48,12 +48,14 @@
     <string name="items">Items</string>
     <string name="letsGo">Let\'s Go !</string>
     <string name="welcome3Message">Congratulations, you know how to create a new user !\nAnd now, for our easy to use wallet !\nAll you have to do is just enter your desired items. This can be simply done by clicking on \'add item\' which located on the menu.\nItem is composed from two simple strings. The first one is the <b>key</b> for your item and the second one is the <b>value</b>.\n<b>Key</b> is the name of your item, For example \'Visa card\'.\n<b>Value</b> is the info you want to store about your item, For example for the key \'Visa card\' we can store its personal code \'1234\'.\nAfter adding an item you can easily edit and delete it by long click on it.\nPlease notice that a key is unique. You cannot have two items with the same key on one wallet.\nSimple !</string>
-    <string name="welcome4Message">Terms Of Use</string>
     <string name="disclaimerMessage">Using Secured Wallet is at your own risk.\nWe are not responsible for direct, indirect, incidental or consequential damages that can occur upon using Secured Wallet.\nThere is no kind of guarantee whatsoever given by Secured Wallet for your data and in case it was stolen or lost it is only your own responsibility.</string>
-    <string name="termsOfUse"><u><b>Terms of use</b></u></string>
+    <string name="termsOfUse"><u>Terms of use</u></string>
     <string name="readAndAcceptTerms">Read and accept terms of use</string>
     <string name="invalidUser">Invalid User</string>
     <string name="pleaseEnterValidUserAndPass">Please enter a valid user and password</string>
     <string name="exit">Exit</string>
     <string name="areYouSureYouWantToLeave">Are you sure you want to leave ?</string>
+    <string name="search"> Search</string>
+    <string name="copy">Copy</string>
+    <string name="valueWasCopied">Value was copied to the clipbaord</string>
 </resources>

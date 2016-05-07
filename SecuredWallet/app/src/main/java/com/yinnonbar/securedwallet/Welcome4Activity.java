@@ -27,7 +27,7 @@ public class Welcome4Activity extends AppCompatActivity{
                 wasRead = true;
                 new AlertDialog.Builder(Welcome4Activity.this)
                         .setTitle(R.string.termsOfUse).setMessage(R.string.disclaimerMessage)
-                        .setNeutralButton("Close", null).show();
+                        .setNeutralButton(R.string.close, null).show();
             }
         });
         NextBtn.setOnClickListener(new View.OnClickListener() {

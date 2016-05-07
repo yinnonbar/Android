@@ -1,17 +1,23 @@
 package com.yinnonbar.securedwallet;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +27,12 @@ import java.util.ArrayList;
  * Created by Yinnon Bratspiess on 07/04/2016.
  */
 public class WalletActivity extends AppCompatActivity {
-   // private static final String WALLETLOG = "DatabaseHelper";
     private static final int ADD_ITEM = 2;
     private static final int EDIT_ITEM = 3;
 
     DBHelper dbhelper;
     ArrayList<WalletItem> itemsArr;
+    ArrayList<WalletItem> searchResults;
     ListView list;
     String currUserName;
     MyAdapter adapter;
@@ -40,9 +46,11 @@ public class WalletActivity extends AppCompatActivity {
         final Intent editItemIntent = new Intent(this, EditItemActivity.class);
         dbhelper =  new DBHelper(getBaseContext());
         currUserName = walletIntent.getStringExtra("username");
+        final EditText search = (EditText) findViewById(R.id.searchBox);
         ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         itemsArr = dbhelper.getAllItems(currUserName);
-        adapter = new MyAdapter(this, 0, itemsArr);
+        searchResults = new ArrayList<WalletItem>(itemsArr);
+        adapter = new MyAdapter(this, 0, searchResults);
         list.setAdapter(adapter);
         if (itemsArr.isEmpty()) {
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName +
@@ -52,25 +60,66 @@ public class WalletActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         }
 
+        search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchString = search.getText().toString();
+                int textLength = searchString.length();
+                searchResults.clear();
+                for(int i = 0; i < itemsArr.size(); i++){
+                    String itemName = itemsArr.get(i).getKey();
+                    if (textLength <= itemName.length()){
+                        if(searchString.equalsIgnoreCase(itemName.substring(0, textLength))){
+                            searchResults.add(itemsArr.get(i));
+                        }
+                    }
+                }
+                adapter = new MyAdapter(com.yinnonbar.securedwallet.WalletActivity.this, 0, searchResults);
+                list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder showItemAlertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
                 //a custom title for the dialog
                 TextView customTitle = new TextView(getApplicationContext());
-                customTitle.setText(itemsArr.get(position).getKey());
+                customTitle.setText(adapter.getItem(position).getKey());
                 customTitle.setTextSize(20);
                 customTitle.setPadding(10, 10, 10, 10);
                 customTitle.setTextColor(Color.BLUE);
                 customTitle.setGravity(Gravity.CENTER);
 
                 showItemAlertDialogBuilder.setCustomTitle(customTitle)
-                        .setMessage(itemsArr.get(position).getValue())
+                        .setMessage(adapter.getItem(position).getValue())
                         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        }).show();
+                        }).setNegativeButton(R.string.copy, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("simple text", adapter.getItem(position).getValue());
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(getApplicationContext(), R.string.valueWasCopied
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
             }
         });
 
@@ -79,8 +128,14 @@ public class WalletActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder longClickAlertDialogBuilder = new AlertDialog.Builder(WalletActivity.this);
-                final String longClickedItemKey = itemsArr.get(position).getKey();
-                longClickAlertDialogBuilder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                final String longClickedItemKey = adapter.getItem(position).getKey();
+                TextView customTitle = new TextView(getApplicationContext());
+                customTitle.setText(adapter.getItem(position).getKey());
+                customTitle.setTextSize(20);
+                customTitle.setPadding(10, 10, 10, 10);
+                customTitle.setTextColor(Color.BLUE);
+                customTitle.setGravity(Gravity.CENTER);
+                longClickAlertDialogBuilder.setCustomTitle(customTitle).setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -92,8 +147,13 @@ public class WalletActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //deleting the item
                                         dbhelper.deleteItemByKey(currUserName, longClickedItemKey);
-                                        itemsArr.remove(position);
+                                        itemsArr.remove(adapter.getItem(position));
+                                        if (adapter.getCount() != itemsArr.size()) {
+                                            adapter.remove(adapter.getItem(position));
+                                        }
+
                                         adapter.notifyDataSetChanged();
+
                                         //if now the list is empty then show the matching message
                                         if (itemsArr.isEmpty()) {
                                             ((TextView) findViewById(R.id.walletTitle))
@@ -123,7 +183,7 @@ public class WalletActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         editItemIntent.putExtra("oldKey", longClickedItemKey);
-                        editItemIntent.putExtra("oldValue", itemsArr.get(position).getValue());
+                        editItemIntent.putExtra("oldValue", adapter.getItem(position).getValue());
                         editItemIntent.putExtra("position", position);
                         startActivityForResult(editItemIntent, EDIT_ITEM);
                     }
@@ -201,13 +261,19 @@ public class WalletActivity extends AppCompatActivity {
             WalletItem newItem = new WalletItem(keyData, valueData);
             //case that the given key is not exists yet
             if (!dbhelper.checkItemExistence(currUserName, keyData)){
+                adapter = new MyAdapter(this, 0, itemsArr);
+                list.setAdapter(adapter);
                 itemsArr.add(newItem);
+
                 dbhelper.addData(currUserName, keyData, valueData);
+
+                adapter.notifyDataSetChanged();
+
             }else{
                 Toast.makeText(getApplicationContext(), R.string.itemWithTheSameKeyAlreadyExists,
                         Toast.LENGTH_SHORT).show();
             }
-            adapter.notifyDataSetChanged();
+            //adapter.notifyDataSetChanged();
             ((TextView) findViewById(R.id.walletTitle)).setText(currUserName + getString(R.string.SecuredWallet));
         }
         //case of edit new item intent returns data
@@ -220,8 +286,11 @@ public class WalletActivity extends AppCompatActivity {
             //and not the key itself then update
             if (!dbhelper.checkItemExistence(currUserName, newKey) ||oldKey.equals(newKey)) {
                 WalletItem newItem = new WalletItem(newKey, newValue);
-                itemsArr.set(itemPos, newItem);
+                adapter.getItem(itemPos).setKey(newKey);
+                adapter.getItem(itemPos).setValue(newValue);
                 dbhelper.updateItem(currUserName, newItem, oldKey);
+                adapter = new MyAdapter(this, 0, itemsArr);
+                list.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Toast.makeText(getApplicationContext(), R.string.itemWasEditedSuccessfully,
                         Toast.LENGTH_SHORT).show();

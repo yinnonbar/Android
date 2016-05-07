@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome4Message"
+        android:text="@string/termsOfUse"
         android:id="@+id/termsOfUseText"
         android:layout_below="@+id/textView15"
         android:layout_alignParentLeft="true"
@@ -35,7 +35,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:clickable="true"
-        android:textColor="#1c1fcd" />
+        android:textColor="#1c1fcd"
+        android:textStyle="bold" />
 
     <CheckBox
         android:layout_width="wrap_content"
